@@ -27,20 +27,29 @@ class TestAppView extends Ui.View {
         // Call the parent onUpdate function to redraw the layout
         View.onUpdate(dc);
         
-        dc.setColor(Gfx.COLOR_GREEN, Gfx.COLOR_TRANSPARENT);
         var endDegree1 = StartDegree + me.percentageToArcDegree(me.mTestAppModel.drawPercentage);
-        var arcWidth = dc.getWidth() / 5;
-        dc.setPenWidth(arcWidth);
-        dc.drawArc(dc.getWidth() / 2, dc.getHeight() / 2, dc.getHeight() / 2, Gfx.ARC_CLOCKWISE, StartDegree, endDegree1);
+        var mainWidth = dc.getWidth() / 5;
+        var radius1 = dc.getHeight() / 2;
+        drawDuration(dc, Gfx.COLOR_GREEN, mainWidth, radius1, StartDegree, endDegree1);
         
-        dc.setColor(Gfx.COLOR_BLUE, Gfx.COLOR_TRANSPARENT);
-        var endDegree2 = me.percentageToArcDegree(67) + endDegree1;
-        dc.drawArc(dc.getWidth() / 2, dc.getHeight() / 2, dc.getHeight() / 2, Gfx.ARC_CLOCKWISE, endDegree1, endDegree2);
+        var endDegree2 = me.percentageToArcDegree(1) + endDegree1;
+        drawDuration(dc, Gfx.COLOR_BLUE, mainWidth, radius1, endDegree1, endDegree2);
         
-        dc.setColor(Gfx.COLOR_BLUE, Gfx.COLOR_TRANSPARENT);
-        var arcWidth2 = arcWidth / 2;
-        dc.setPenWidth(arcWidth2);
-        dc.drawArc(dc.getWidth() / 2, dc.getHeight() / 2, dc.getHeight() / 2 - arcWidth + arcWidth2 / 2, Gfx.ARC_CLOCKWISE, 90, endDegree1);
+        var endDegree3 = me.percentageToArcDegree(10) + endDegree2;
+        drawDuration(dc, Gfx.COLOR_RED, mainWidth, radius1, endDegree2, endDegree3);
+                
+        var intermediateWidth = dc.getWidth() / 25;
+        var intermediateOffset = radius1 - mainWidth / 2 - intermediateWidth / 2;
+        var colors = [Gfx.COLOR_YELLOW, Gfx.COLOR_PINK, Gfx.COLOR_DK_BLUE, Gfx.COLOR_RED, Gfx.COLOR_DK_GREEN];
+        for (var i = 0; i < colors.size(); i++) {
+        	drawDuration(dc, colors[i], intermediateWidth, intermediateOffset - i * intermediateWidth, StartDegree, endDegree3);  
+        }      
+    }
+    
+    private function drawDuration(dc, color, width, radius, startDegree, endDegree) {
+        dc.setColor(color, Gfx.COLOR_TRANSPARENT);
+        dc.setPenWidth(width);
+        dc.drawArc(dc.getWidth() / 2, dc.getHeight() / 2,  radius , Gfx.ARC_CLOCKWISE, startDegree, endDegree);
     }
     
     private function percentageToArcDegree(percentage) {

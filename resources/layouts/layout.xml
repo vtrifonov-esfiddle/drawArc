@@ -1,3 +1,4 @@
 <layout id="MainLayout">
-    <bitmap id="id_monkey" x="center" y="60" filename="../drawables/monkey.png" />
+    <label x="center" y ="center" text="00:15:13" font="Gfx.FONT_MEDIUM" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_CENTER" />
+    <label x="center" y ="130" text="58 B" font="Gfx.FONT_MEDIUM" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_CENTER" />
 </layout>
